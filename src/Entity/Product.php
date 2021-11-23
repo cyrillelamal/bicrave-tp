@@ -31,7 +31,7 @@ class Product
     #[ORM\Column(type: 'integer')]
     private ?int $rest = 0;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime')]
     private ?DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: 'datetime')]
@@ -40,7 +40,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class)]
     private Collection $images;
 
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EAGER', inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category;
 
@@ -69,5 +69,10 @@ class Product
         }
 
         return $this;
+    }
+
+    #[Pure] public function __toString(): string
+    {
+        return $this->getName();
     }
 }

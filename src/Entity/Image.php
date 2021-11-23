@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Entity\Accessor\ImageGetters;
 use App\Entity\Accessor\ImageSetters;
 use App\Repository\ImageRepository;
-use DateTimeImmutable;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
@@ -29,10 +29,10 @@ class Image
     #[ORM\Column(type: 'text')]
     private ?string $name = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime')]
     private ?DateTimeInterface $uploadedAt = null;
 
-    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'images')]
+    #[ORM\ManyToOne(targetEntity: Product::class, fetch: 'EAGER', inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
@@ -51,7 +51,7 @@ class Image
         $this->file = $file;
 
         if ($file) {
-            $this->setUploadedAt(new DateTimeImmutable());
+            $this->setUploadedAt(new DateTime());
         }
     }
 }

@@ -4,7 +4,6 @@ namespace App\DataFixtures\Factory;
 
 use App\Entity\Image;
 use App\Entity\Product;
-use DateTimeImmutable;
 use DateTimeInterface;
 
 class ImageFactory
@@ -24,17 +23,10 @@ class ImageFactory
             $image = new Image();
 
             $image->setName(self::getFaker()->imageUrl());
-            $image->setUploadedAt(self::getDateTimeAfter($product->getCreatedAt()));
+            $image->setUploadedAt(self::getFaker()->dateTimeBetween($product->getCreatedAt()->format(DateTimeInterface::ATOM)));
             $image->setProduct($product);
 
             return $image;
         }, array_fill(0, $count, null));
-    }
-
-    protected static function getDateTimeAfter(DateTimeInterface $dateTime): DateTimeInterface
-    {
-        return DateTimeImmutable::createFromInterface(
-            self::getFaker()->dateTimeBetween($dateTime->format(DateTimeInterface::ATOM))
-        );
     }
 }

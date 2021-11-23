@@ -4,7 +4,6 @@ namespace App\DataFixtures\Factory;
 
 use App\Entity\Category;
 use App\Entity\Product;
-use DateTimeImmutable;
 
 class ProductFactory
 {
@@ -25,7 +24,7 @@ class ProductFactory
             $product->setName(self::getFaker()->words(rand(2, 5), true));
             $product->setCost(rand(99, 99_99));
             $product->setRest(rand(100, 1_000));
-            $product->setCreatedAt(DateTimeImmutable::createFromMutable(self::getFaker()->dateTime()));
+            $product->setCreatedAt(self::getFaker()->dateTime());
             $product->setUpdatedAt(self::getFaker()->dateTimeBetween($product->getCreatedAt()->format(DATE_ATOM)));
             $product->setCategory($category);
 

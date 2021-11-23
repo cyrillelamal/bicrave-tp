@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211122152439 extends AbstractMigration
+final class Version20211123064923 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -35,10 +35,8 @@ final class Version20211122152439 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_428D79731AD5CDBF ON demand (cart_id)');
         $this->addSql('CREATE TABLE image (id INT NOT NULL, product_id INT NOT NULL, name TEXT NOT NULL, uploaded_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_C53D045F4584665A ON image (product_id)');
-        $this->addSql('COMMENT ON COLUMN image.uploaded_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE product (id INT NOT NULL, category_id INT NOT NULL, name VARCHAR(255) NOT NULL, cost INT NOT NULL, rest INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_D34A04AD12469DE2 ON product (category_id)');
-        $this->addSql('COMMENT ON COLUMN product.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE "user" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON "user" (email)');
         $this->addSql('ALTER TABLE cart ADD CONSTRAINT FK_BA388B77E3C61F9 FOREIGN KEY (owner_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');

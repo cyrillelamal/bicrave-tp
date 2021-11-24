@@ -64,6 +64,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * Check if the user has role.
+     * This method should not be user for authorization purposes!
+     */
+    #[Pure] public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->getRoles());
+    }
+
+    /**
      * {@inheritDoc}
      */
     #[Pure] public function getRoles(): array

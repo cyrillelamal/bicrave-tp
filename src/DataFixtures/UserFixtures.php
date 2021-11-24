@@ -12,7 +12,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    public const NB_CUSTOMERS = 20;
+    public const NB_CUSTOMERS = 12;
+    public const NB_CONTENT_MANAGERS = 4;
 
     public const PASSWORD = 'password';
 
@@ -34,10 +35,20 @@ class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        foreach ($this->makeUsers(self::NB_CUSTOMERS) as $customer) {
-            $customer->addRole(Role::CUSTOMER);
+        $users = array_merge(
+            array_map(function (User $user) {
+                $user->addRole(Role::CONTENT_MANAGER);
+                return $user;
+            }, $this->makeUsers(self::NB_CONTENT_MANAGERS)),
 
-            $manager->persist($customer);
+            array_map(function (User $user) {
+                $user->addRole(Role::CUSTOMER);
+                return $user;
+            }, $this->makeUsers(self::NB_CUSTOMERS)),
+        );
+
+        foreach ($users as $user) {
+            $manager->persist($user);
         }
 
         $manager->flush();

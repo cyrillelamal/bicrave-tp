@@ -12,6 +12,7 @@ class SecurityControllerTest extends WebTestCase
 {
     public const LOGIN = '/login';
     public const LOGOUT = '/logout';
+    public const REGISTER = '/register';
 
     public function testAnonymousUsersCanLogIn(): void
     {
@@ -37,6 +38,15 @@ class SecurityControllerTest extends WebTestCase
         $client->loginUser($this->getRandomUser())->request(Request::METHOD_GET, self::LOGOUT);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testUsersCanSignUp(): void
+    {
+        $client = static::createClient();
+
+        $client->request(Request::METHOD_GET, self::REGISTER);
+
+        $this->assertResponseIsSuccessful();
     }
 
     private function getRandomUser(): User

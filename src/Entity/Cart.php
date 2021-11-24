@@ -28,6 +28,23 @@ class Cart
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
 
+    /**
+     * Make a new shopping cart.
+     * Simple factory.
+     *
+     * @param User $user the owner of the shopping cart.
+     * @return static
+     */
+    public static function make(User $user): self
+    {
+        $cart = new self();
+
+        $cart->setOwner($user);
+        $user->setCart($cart);
+
+        return $cart;
+    }
+
     #[Pure] public function __construct()
     {
         $this->demands = new ArrayCollection();

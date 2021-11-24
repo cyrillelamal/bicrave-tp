@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Accessor\DemandGetters;
 use App\Entity\Accessor\DemandSetters;
 use App\Repository\DemandRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DemandRepository::class)]
@@ -28,4 +29,7 @@ class Demand
     #[ORM\ManyToOne(targetEntity: Cart::class, inversedBy: 'demands')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Cart $cart = null;
+
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTimeInterface $createdAt = null;
 }

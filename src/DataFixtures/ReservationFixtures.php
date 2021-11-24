@@ -2,25 +2,25 @@
 
 namespace App\DataFixtures;
 
-use App\DataFixtures\Factory\DemandFactory;
-use App\Repository\CartRepository;
+use App\DataFixtures\Factory\ReservationFactory;
+use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class DemandFixtures extends Fixture implements DependentFixtureInterface
+class ReservationFixtures extends Fixture implements DependentFixtureInterface
 {
+    private OrderRepository $orderRepository;
     private ProductRepository $productRepository;
-    private CartRepository $cartRepository;
 
     public function __construct(
+        OrderRepository   $orderRepository,
         ProductRepository $productRepository,
-        CartRepository    $cartRepository,
     )
     {
+        $this->orderRepository = $orderRepository;
         $this->productRepository = $productRepository;
-        $this->cartRepository = $cartRepository;
     }
 
     /**
@@ -28,17 +28,17 @@ class DemandFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        $carts = $this->cartRepository->findAll();
+        $orders = $this->orderRepository->findAll();
         $products = $this->productRepository->findAll();
 
-        foreach ($carts as $cart) {
+        foreach ($orders as $order) {
             shuffle($products);
             $selection = array_slice($products, 1, rand(2, 4));
 
             foreach ($selection as $product) {
-                $demand = DemandFactory::makeDemand($product, $cart);
+                $reservation = ReservationFactory::makeReservation($product, $order);
 
-                $manager->persist($demand);
+                $manager->persist($reservation);
             }
         }
 
@@ -51,8 +51,8 @@ class DemandFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
+            OrderFixtures::class,
             ProductFixtures::class,
-            CartFixtures::class,
         ];
     }
 }

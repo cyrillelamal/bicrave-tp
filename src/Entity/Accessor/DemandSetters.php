@@ -4,6 +4,7 @@ namespace App\Entity\Accessor;
 
 use App\Entity\Cart;
 use App\Entity\Product;
+use DateTimeInterface;
 
 trait DemandSetters
 {
@@ -24,6 +25,13 @@ trait DemandSetters
     public function setCart(?Cart $cart): self
     {
         $this->cart = $cart;
+
+        return $this;
+    }
+
+    public function setCreatedAt(?DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -8,6 +8,8 @@ use App\Entity\Product;
 
 class DemandFactory
 {
+    use Faker;
+
     /**
      * Simple factory for demand entities.
      *
@@ -22,6 +24,7 @@ class DemandFactory
         $demand->setProduct($product);
         $demand->setNumber(rand(1, 9));
         $demand->setCart($cart);
+        $demand->setCreatedAt(self::getFaker()->dateTimeBetween($product->getCreatedAt()->format(DATE_ATOM)));
 
         return $demand;
     }

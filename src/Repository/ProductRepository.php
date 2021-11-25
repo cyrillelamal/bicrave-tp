@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use App\Repository\Common\MutatorInterface;
+use App\Repository\Common\QueryMutatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -32,10 +32,10 @@ class ProductRepository extends ServiceEntityRepository implements LoggerAwareIn
     /**
      * Get the newest products with their images and categories.
      *
-     * @param MutatorInterface|null $mutator
+     * @param QueryMutatorInterface|null $mutator
      * @return Product[]
      */
-    public function getNovelties(?MutatorInterface $mutator = null): array
+    public function getNovelties(?QueryMutatorInterface $mutator = null): array
     {
         $qb = $this->getQueryBuilderJoinImagesJoinCategory()->orderBy('product.createdAt', 'DESC');
 
@@ -51,10 +51,10 @@ class ProductRepository extends ServiceEntityRepository implements LoggerAwareIn
     /**
      * Get the most popular products with their images and categories.
      *
-     * @param MutatorInterface|null $mutator
+     * @param QueryMutatorInterface|null $mutator
      * @return Product[]
      */
-    public function getPopularProducts(?MutatorInterface $mutator = null): array
+    public function getPopularProducts(?QueryMutatorInterface $mutator = null): array
     {
         $qb = $this->getQueryBuilderJoinImagesJoinCategory()->orderBy('product.popularity', 'DESC');
 

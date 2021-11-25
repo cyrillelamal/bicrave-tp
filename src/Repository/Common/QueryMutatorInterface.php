@@ -14,7 +14,7 @@ use Doctrine\ORM\QueryBuilder;
  * It seems more convenient to extract some parameters outside of repositories.
  * For example, the client code, e.g. a very simple CRUD controller, may use it to add pagination or cache.
  */
-interface MutatorInterface
+interface QueryMutatorInterface
 {
     /**
      * Apply some changes to the query builder.

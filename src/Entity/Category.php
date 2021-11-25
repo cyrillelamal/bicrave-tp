@@ -39,6 +39,14 @@ class Category
         $this->products = new ArrayCollection();
     }
 
+    /**
+     * Check if this category is a subcategory.
+     */
+    #[Pure] public function hasParent(): bool
+    {
+        return null !== $this->getParent();
+    }
+
     public function addChild(self $child): self
     {
         if (!$this->getChildren()->contains($child)) {

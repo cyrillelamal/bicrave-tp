@@ -1,0 +1,19 @@
+<ul class="list-group">
+    <li class="list-group-item">
+
+    </li>
+</ul>
+<aside class="menu">
+    <ul class="menu-list">
+        {% for category in categories %}
+            <li>
+                <a href="{{ path('category_read', {'id': category.id}) }}">{{ category.name }}</a>
+            </li>
+            {% if category.children %}
+                <li>
+                    {{ include('category/level.html.twig', {'categories': category.children}) }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</aside>

@@ -10,16 +10,16 @@
         </h1>
 
         <div class="block">
-            {# {{ include('category/sortings.html.twig', {'pagination': products}) }} #}
+            {{ include('category/sortings.html.twig', {pagination: products}) }}
         </div>
 
         <div class="block">
             {# TODO: add filters #}
-            {# {{ include('category/products.html.twig', {'products': products}) }} #}
+            {{ include('category/products.html.twig', {products: products}) }}
         </div>
 
         <div class="block">
-{#            {{ knp_pagination_render(products) }}#}
+            {{ knp_pagination_render(products) }}
         </div>
 
     </main>

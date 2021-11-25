@@ -12,5 +12,5 @@ framework:
         routing:
             App\Message\Product\GetNoveltiesMessage: sync
             App\Message\Product\GetPopularProductsMessage: sync
-        # Route your messages to the transports
-        # 'App\Message\YourMessage': async
+            App\Message\Category\GetCategoryTreesMessage: sync
+            App\Message\Product\PaginateCategoryProductsMessage: sync

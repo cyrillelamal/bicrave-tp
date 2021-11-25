@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Repository\Common\QueryMutatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -65,6 +66,24 @@ class ProductRepository extends ServiceEntityRepository implements LoggerAwareIn
         $mutator?->mutateQuery($query);
 
         return $this->fetchJoinCollection($query);
+    }
+
+    /**
+     * Get pagination target for products that belong to the provided category.
+     *
+     * @param Category|int $category the category or its id.
+     * @return Query there are joins on images and the category.
+     */
+    public function getQueryForCategoryPagination(Category|int $category): Query
+    {
+        $categoryId = $category instanceof Category ? $category->getId() : $category;
+
+        $qb = $this->getQueryBuilderJoinImagesJoinCategory()
+            ->where('category.id = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->orderBy('product.createdAt', 'DESC');
+
+        return $qb->getQuery();
     }
 
     protected function getQueryBuilderJoinImagesJoinCategory(): QueryBuilder

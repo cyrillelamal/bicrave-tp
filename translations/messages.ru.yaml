@@ -7,3 +7,14 @@ category:
     nom:
         s: 'Категория'
         pl: 'Категории'
+    sort:
+        sort_by: 'Сортировка'
+        price:
+            asc: 'Цена по возрастанию'
+            desc: 'Цена по убыванию'
+        updated_at:
+            desc: 'Новинки'
+
+product:
+    new_products: 'Новые товары'
+    popular_products: 'Популярные товары'

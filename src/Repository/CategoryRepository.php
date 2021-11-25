@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Repository\Common\QueryMutatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use WeakMap;
@@ -25,13 +26,19 @@ class CategoryRepository extends ServiceEntityRepository
      *
      * @return Category[] top level categories with their entire trees.
      */
-    public function getCategoryTrees(): array
+    public function getCategoryTrees(?QueryMutatorInterface $mutator = null): array
     {
         $qb = $this->createQueryBuilder('category')
             ->leftJoin('category.parent', 'parent')
             ->orderBy('category.parent', 'DESC');
 
-        return $this->buildCategoryTrees(...$qb->getQuery()->getResult());
+        $mutator?->mutateQueryBuilder($qb);
+
+        $query = $qb->getQuery();
+
+        $mutator?->mutateQuery($query);
+
+        return $this->buildCategoryTrees(...$query->getResult());
     }
 
     /**

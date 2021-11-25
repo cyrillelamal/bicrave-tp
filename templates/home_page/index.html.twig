@@ -1,20 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="example-wrapper">
-
-    {% for product in new_products %}
-        <div>
-            {{ product.name }} <= {{ product.category.name }}
+    <main class="section">
+        <div class="block">
+            <h2 class="title">{{ 'product.new_products'|trans }}</h2>
+            {{ include('product/columns.html.twig', {products: novelties}) }}
         </div>
-    {% endfor %}
-
-    <hr>
-
-    {% for product in popular_products %}
-        <div>
-            {{ product.name }} => {{ product.popularity }}
+        <div class="block">
+            <h2 class="title">{{ 'product.popular_products'|trans }}</h2>
+            {{ include('product/columns.html.twig', {products: popular_products}) }}
         </div>
-    {% endfor %}
-
+    </main>
 {% endblock %}

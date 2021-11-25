@@ -1,0 +1,19 @@
+{% set category = product.category %}
+<div class="card">
+
+    <header class="card-header">
+        <p class="card-header-title">
+            <a href="{{ path('category_read', {id: category.id}) }}">{{ category.name }}</a>
+        </p>
+    </header>
+
+    <div class="card-content">
+        <h2 class="title is-size-4">
+            {{ product.name }}
+        </h2>
+        <h3 class="subtitle">
+            {{ product.price|format_currency(currency) }}
+        </h3>
+    </div>
+
+</div>

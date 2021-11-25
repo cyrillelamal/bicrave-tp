@@ -52,6 +52,16 @@ class Product
         $this->images = new ArrayCollection();
     }
 
+    /**
+     * Get the final product price.
+     *
+     * @return float the application's currency value: not cents.
+     */
+    #[Pure] public function getPrice(): float
+    {
+        return $this->getCost() / 100;
+    }
+
     public function addImage(Image $image): self
     {
         if (!$this->getImages()->contains($image)) {

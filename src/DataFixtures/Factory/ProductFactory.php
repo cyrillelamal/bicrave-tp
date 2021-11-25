@@ -27,6 +27,7 @@ class ProductFactory
             $product->setCreatedAt(self::getFaker()->dateTime());
             $product->setUpdatedAt(self::getFaker()->dateTimeBetween($product->getCreatedAt()->format(DATE_ATOM)));
             $product->setCategory($category);
+            $product->setPopularity(lcg_value());
 
             return $product;
         }, array_fill(0, $count, null));

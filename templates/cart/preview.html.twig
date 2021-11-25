@@ -1,0 +1,4 @@
+{% if not is_granted('ROLE_CONTENT_MANAGER') %}
+    {# TODO: add shopping cart #}
+    <a href="#" class="button cart-total">{{ 0.0|format_currency(currency) }}</a>
+{% endif %}

@@ -44,6 +44,9 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category;
 
+    #[ORM\Column(type: 'float')]
+    private ?float $popularity = 0.0;
+
     #[Pure] public function __construct()
     {
         $this->images = new ArrayCollection();

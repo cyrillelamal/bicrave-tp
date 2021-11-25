@@ -1,0 +1,9 @@
+security:
+    register: 'Зарегистрироваться'
+    login: 'Войти'
+    logout: 'Выйти'
+
+category:
+    nom:
+        s: 'Категория'
+        pl: 'Категории'

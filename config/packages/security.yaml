@@ -23,7 +23,7 @@ security:
             custom_authenticator: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
-                csrf_parameter: token
+                csrf_parameter: _token
                 csrf_token_generator: security.csrf.token_manager
                 target: index
             remember_me:

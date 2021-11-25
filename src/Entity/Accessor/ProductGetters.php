@@ -52,4 +52,9 @@ trait ProductGetters
     {
         return $this->category;
     }
+
+    public function getPopularity(): ?float
+    {
+        return $this->popularity;
+    }
 }

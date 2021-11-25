@@ -1,0 +1,18 @@
+{% if app.user %}
+    {% if is_granted('ROLE_CONTENT_MANAGER') %}
+        <a href="{{ path('admin') }}" class="button is-primary">
+            {{ 'dashboard'|trans({}, 'admin') }}
+        </a>
+    {% endif %}
+    {# TODO: add user profile #}
+    <a href="{{ path('app_logout', {'_token': csrf_token('logout')}) }}" class="button is-warning">
+        {{ 'security.logout'|trans }}
+    </a>
+{% else %}
+    <a href="{{ path('app_register') }}" class="button is-primary">
+        <strong>{{ 'security.register'|trans }}</strong>
+    </a>
+    <a href="{{ path('app_login') }}" class="button is-light">
+        {{ 'security.login'|trans }}
+    </a>
+{% endif %}

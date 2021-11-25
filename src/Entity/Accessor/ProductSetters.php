@@ -48,4 +48,11 @@ trait ProductSetters
 
         return $this;
     }
+
+    public function setPopularity(?float $popularity): self
+    {
+        $this->popularity = $popularity;
+
+        return $this;
+    }
 }

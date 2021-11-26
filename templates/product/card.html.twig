@@ -6,14 +6,21 @@
             <a href="{{ path('category_read', {id: category.id}) }}">{{ category.name }}</a>
         </p>
     </header>
+    <header class="card-image">
+        {{ include('component/carousel.html.twig', {images: product.images}) }}
+    </header>
 
     <div class="card-content">
         <h2 class="title is-size-4">
-            {{ product.name }}
+            <a href="{{ path('product_read', {id: product.id}) }}">
+                {{ product.name }}
+            </a>
         </h2>
         <h3 class="subtitle">
             {{ product.price|format_currency(currency) }}
         </h3>
+
+        {{ include('product/controls.html.twig', {product: product}) }}
     </div>
 
 </div>

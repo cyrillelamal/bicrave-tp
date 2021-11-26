@@ -4,13 +4,14 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Product;
-use App\Repository\Common\QueryMutatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use LogicException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
@@ -33,18 +34,16 @@ class ProductRepository extends ServiceEntityRepository implements LoggerAwareIn
     /**
      * Get the newest products with their images and categories.
      *
-     * @param QueryMutatorInterface|null $mutator
+     * @param int $limit
      * @return Product[]
      */
-    public function getNovelties(?QueryMutatorInterface $mutator = null): array
+    public function getNovelties(int $limit = 8): array
     {
-        $qb = $this->getQueryBuilderJoinImagesJoinCategory()->orderBy('product.createdAt', 'DESC');
-
-        $mutator?->mutateQueryBuilder($qb);
+        $qb = $this->getQueryBuilderJoinImagesJoinCategory()
+            ->orderBy('product.createdAt', 'DESC')
+            ->setMaxResults($limit);
 
         $query = $qb->getQuery();
-
-        $mutator?->mutateQuery($query);
 
         return $this->fetchJoinCollection($query);
     }
@@ -52,18 +51,16 @@ class ProductRepository extends ServiceEntityRepository implements LoggerAwareIn
     /**
      * Get the most popular products with their images and categories.
      *
-     * @param QueryMutatorInterface|null $mutator
+     * @param int $limit
      * @return Product[]
      */
-    public function getPopularProducts(?QueryMutatorInterface $mutator = null): array
+    public function getPopularProducts(int $limit = 8): array
     {
-        $qb = $this->getQueryBuilderJoinImagesJoinCategory()->orderBy('product.popularity', 'DESC');
-
-        $mutator?->mutateQueryBuilder($qb);
+        $qb = $this->getQueryBuilderJoinImagesJoinCategory()
+            ->orderBy('product.popularity', 'DESC')
+            ->setMaxResults($limit);
 
         $query = $qb->getQuery();
-
-        $mutator?->mutateQuery($query);
 
         return $this->fetchJoinCollection($query);
     }
@@ -84,6 +81,46 @@ class ProductRepository extends ServiceEntityRepository implements LoggerAwareIn
             ->orderBy('product.createdAt', 'DESC');
 
         return $qb->getQuery();
+    }
+
+    /**
+     * Find product by its id joining the related images and category.
+     *
+     * @param int $id
+     * @return Product|null
+     */
+    public function findByIdJoinImagesJoinCategory(int $id): ?Product
+    {
+        $qb = $this->createQueryBuilder('product')
+            ->leftJoin('product.images', 'images')
+            ->addSelect('images')
+            ->leftJoin('product.category', 'category')
+            ->addSelect('category')
+            ->where('product.id = :id')
+            ->setParameter('id', $id);
+
+        try {
+            return $qb->getQuery()->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            $this->logger->critical('Bad schema: duplicated primary key', ['exception' => $e, 'id' => $id]);
+            throw new LogicException('Multiple product definitions for the same primary key');
+        }
+    }
+
+    /**
+     * Find multiple products by their ids.
+     * This method is N+1 dangerous since images aren't fetched.
+     *
+     * @param int ...$ids the product ids.
+     * @return Product[]
+     */
+    public function findWhereIdIn(int ...$ids): array
+    {
+        return $this->createQueryBuilder('product')
+            ->where('product.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getResult();
     }
 
     protected function getQueryBuilderJoinImagesJoinCategory(): QueryBuilder

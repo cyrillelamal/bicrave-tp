@@ -1,0 +1,20 @@
+{% set demand = product|demand %}
+
+<div class="buttons product-controls">
+
+    <button
+            class="button is-danger {% if demand.useless %}is-hidden{% endif %} pick-up"
+            data-action="{{ path('cart_pick_up_product', {id: product.id}) }}"
+    >{{ 'product.pick_up'|trans }}</button>
+
+    <a
+            href="{{ path('cart_index') }}"
+            class="button {% if demand.useless %}is-hidden{% endif %} amount"
+    >{{ demand.number }}</a>
+
+    <button
+            class="button is-info add"
+            data-action="{{ path('cart_put_product', {id: product.id}) }}"
+    >{{ 'product.add'|trans }}</button>
+
+</div>

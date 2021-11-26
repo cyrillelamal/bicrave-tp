@@ -3,10 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Category;
-use App\Repository\Common\QueryMutatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use WeakMap;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,59 +20,14 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get all categories as trees of subcategories.
-     *
-     * @return Category[] top level categories with their entire trees.
+     * @return Category[]
      */
-    public function getCategoryTrees(?QueryMutatorInterface $mutator = null): array
+    public function findAllJoinParentOrderByParentDesc(): array
     {
-        $qb = $this->createQueryBuilder('category')
+        return $this->createQueryBuilder('category')
             ->leftJoin('category.parent', 'parent')
-            ->orderBy('category.parent', 'DESC');
-
-        $mutator?->mutateQueryBuilder($qb);
-
-        $query = $qb->getQuery();
-
-        $mutator?->mutateQuery($query);
-
-        return $this->buildCategoryTrees(...$query->getResult());
-    }
-
-    /**
-     * Build category trees.
-     *
-     * @param Category ...$categories parents must be first.
-     * @return Category[] top level categories.
-     */
-    protected function buildCategoryTrees(Category ...$categories): array
-    {
-        $map = new WeakMap(); // parent -> children
-        $top = [];
-
-        foreach ($categories as $category) {
-            if ($category->hasParent()) {
-                $parent = $category->getParent();
-                $children = $map->offsetExists($parent) ? [...$map->offsetGet($parent), $category] : [$category];
-                $map->offsetSet($parent, $children);
-            } else {
-                $top[] = $category;
-            }
-        }
-
-        foreach ($map->getIterator() as $children) {
-            foreach ($children as $child) /** @var Category $child */ {
-                $child->getChildren()->clear(); // We must clear
-            }
-        }
-
-        foreach ($map->getIterator() as $parent => $children) /** @var Category $parent */ {
-            $parent->getChildren()->clear();
-            foreach ($children as $child) /** @var Category $child */ {
-                $parent->addChild($child);
-            }
-        }
-
-        return $top;
+            ->orderBy('category.parent', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Order|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,24 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    // /**
-    //  * @return Order[] Returns an array of Order objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Get pagination target for orders that belongs to the provided user.
+     *
+     * @param UserInterface|string $user the user or his/her email.
+     * @return Query there are joins on reservations and the user.
+     */
+    public function getQueryForProfilePagination(UserInterface|string $user): Query
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $email = $user instanceof UserInterface ? $user->getUserIdentifier() : $user;
 
-    /*
-    public function findOneBySomeField($value): ?Order
-    {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->join('o.customer', 'customer')
+            ->addSelect('customer')
+            ->leftJoin('o.reservations', 'reservations')
+            ->addSelect('reservations')
+            ->where('customer.email = :email')
+            ->setParameter('email', $email)
+            ->orderBy('o.createdAt', 'DESC')
+            ->getQuery();
     }
-    */
 }

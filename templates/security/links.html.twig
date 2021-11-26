@@ -4,7 +4,11 @@
             {{ 'dashboard'|trans({}, 'admin') }}
         </a>
     {% endif %}
-    {# TODO: add user profile #}
+    {% if is_granted('ROLE_CUSTOMER') %}
+        <a href="{{ path('profile_index') }}" class="button is-link">
+            {{ 'security.profile'|trans }}
+        </a>
+    {% endif %}
     <a href="{{ path('app_logout', {'_token': csrf_token('logout')}) }}" class="button is-warning">
         {{ 'security.logout'|trans }}
     </a>

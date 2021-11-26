@@ -10,7 +10,3 @@ framework:
             sync: 'sync://'
 
         routing:
-            App\Message\Product\GetNoveltiesMessage: sync
-            App\Message\Product\GetPopularProductsMessage: sync
-            App\Message\Category\GetCategoryTreesMessage: sync
-            App\Message\Product\PaginateCategoryProductsMessage: sync

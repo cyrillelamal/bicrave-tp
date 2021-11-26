@@ -3,6 +3,7 @@ twig:
     globals:
         app_name: '%app.name%'
         currency: '%app.currency%'
+        cart: '@App\Common\Cart\CartFacade'
 
 when@test:
     twig:

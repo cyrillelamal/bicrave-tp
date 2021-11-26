@@ -1,7 +1,22 @@
+home_page: 'Домашняя страница'
+
 security:
     register: 'Зарегистрироваться'
     login: 'Войти'
     logout: 'Выйти'
+    profile: 'Личный кабинет'
+    greetings: 'Добро пожаловать, %name%'
+    registration_form:
+        email: 'Электронная почта'
+        password: 'Пароль'
+        agree_terms: 'Я принимаю условия пользования'
+        submit: 'Зарегистрироваться'
+        login: 'Уже есть аккаунт?'
+    login_form:
+        email: 'Электронная почта'
+        password: 'Пароль'
+        remember_me: 'Запомнить меня'
+        submit: 'Войти'
 
 category:
     nom:
@@ -18,3 +33,26 @@ category:
 product:
     new_products: 'Новые товары'
     popular_products: 'Популярные товары'
+    add: 'Купить'
+    pick_up: '-'
+    details: 'Подробнее'
+
+order:
+    nom:
+        s: 'Заказ'
+        pl: 'Заказы'
+    status:
+        created: 'Создан'
+        accepted: 'Принят в обработку'
+    number: 'Заказ № %number%'
+    from: 'От'
+    details: 'Подробнее'
+
+reservation:
+    name: 'Наименование'
+    price: 'Цена'
+    number: 'Количество'
+
+carousel:
+    previous: '←'
+    next: '→'

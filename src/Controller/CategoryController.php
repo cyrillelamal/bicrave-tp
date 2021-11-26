@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Product;
-use App\Infrastructure\SubroutineInterface;
-use App\Message\Category\GetCategoryTreesMessage;
-use App\Message\Product\PaginateCategoryProductsMessage;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+use App\UseCase\Category\GetCategoryTrees;
+use App\UseCase\Product\PaginateCategoryProducts;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,20 +13,22 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/categories', name: 'category_')]
 class CategoryController extends AbstractController
 {
-    private SubroutineInterface $subroutine;
+    private GetCategoryTrees $getCategoryTrees;
+    private PaginateCategoryProducts $paginateCategoryProducts;
 
     public function __construct(
-        SubroutineInterface $subroutine,
+        GetCategoryTrees         $getCategoryTrees,
+        PaginateCategoryProducts $paginateCategoryProducts,
     )
     {
-        $this->subroutine = $subroutine;
+        $this->getCategoryTrees = $getCategoryTrees;
+        $this->paginateCategoryProducts = $paginateCategoryProducts;
     }
 
     #[Route(name: 'index', methods: [Request::METHOD_GET])]
     public function index(): Response
     {
-        /** @var Category[] $categories */
-        $categories = $this->subroutine->execute(new GetCategoryTreesMessage());
+        $categories = ($this->getCategoryTrees)();
 
         return $this->render('category/index.html.twig', [
             'categories' => $categories,
@@ -39,8 +38,7 @@ class CategoryController extends AbstractController
     #[Route(path: '/{id<\d+>}', name: 'read', methods: [Request::METHOD_GET])]
     public function read(Category $category): Response
     {
-        /** @var PaginationInterface<Product> $products */
-        $products = $this->subroutine->execute(new PaginateCategoryProductsMessage($category->getId()));
+        $products = ($this->paginateCategoryProducts)($category);
 
         return $this->render('category/read.html.twig', [
             'category' => $category,

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+    <main class="section">
+
+        {{ include('product/breadcrumb.html.twig', {product: product}) }}
+
+        <h1 class="title">
+            {{ product.name }}
+        </h1>
+        <h2 class="subtitle">
+            <span class="is-info">{{ product.price|format_currency(currency) }}</span>
+        </h2>
+
+        <div class="block">
+            {{ include('product/controls.html.twig', {'product': product}) }}
+        </div>
+
+        <div class="block">
+            {# {{ include('component/carousel.html.twig', {'images': product.images}) }} #}
+        </div>
+
+    </main>
+{% endblock %}

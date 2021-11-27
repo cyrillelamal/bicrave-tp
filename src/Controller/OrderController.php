@@ -39,7 +39,7 @@ class OrderController extends AbstractController
         $this->translator = $translator;
     }
 
-    #[Route(path: '/{id<\d+>}', name: 'read', methods: [Request::METHOD_GET])]
+    #[Route(path: '/{id<\d+>}', name: 'read', methods: [Request::METHOD_GET], schemes: ['%secure_channel%'])]
     #[IsGranted(OrderVoter::READ, 'order')]
     public function read(Order $order): Response
     {

@@ -5,6 +5,7 @@ namespace App\Event;
 use App\Entity\Order;
 use Symfony\Contracts\EventDispatcher\Event;
 
+// TODO: update product popularity (asynchronously)
 class OrderCreatedEvent extends Event
 {
     public const NAME = 'order.created';

@@ -7,6 +7,7 @@ parameters:
     app.name: 'bicrave-tp'
     app.locale: 'ru'
     app.currency: 'EUR'  # ISO 4217
+    secure_channel: 'http'
     app.path.product_images: '/uploads/images/products'
     stripe.public: '%env(STRIPE_PUBLIC_KEY)%'
     stripe.secret: '%env(STRIPE_SECRET_KEY)%'

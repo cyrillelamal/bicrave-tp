@@ -1,5 +1,6 @@
 registration_form:
     email:
+        bad_email: 'Введите корректный email'
         unique: 'Аккаунт с данной почтой уже зарегистрирован'
     password:
         not_blank: 'Введите пароль'

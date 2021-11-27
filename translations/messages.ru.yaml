@@ -71,6 +71,13 @@ payment:
     order:
         accepted: 'Заказ № %number% принят в обработку'
 
+command:
+    create_content_manager:
+        password: 'Введите пароль'
+        password_repeat: 'Повторите пароль'
+        not_match: 'Введенные пароли различаются, попробуйте снова'
+        success: 'Пользователь успешно создан: %email%'
+
 carousel:
     previous: '←'
     next: '→'

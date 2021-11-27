@@ -2,6 +2,8 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\Cart;
+use App\Entity\Demand;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\Pure;
@@ -54,6 +56,24 @@ class CartControllerTest extends WebTestCase
         $this->assertNotEquals(Response::HTTP_NOT_FOUND, $code);
     }
 
+    /**
+     * @test
+     */
+    public function it_lists_products_of_user_cart(): void
+    {
+        $client = self::createClient();
+
+        $cart = $this->getRandomUserCart();
+        $user = $cart->getOwner();
+
+        $client->loginUser($user)->request(Request::METHOD_GET, self::INDEX);
+
+        $html = $client->getResponse()->getContent();
+        foreach ($cart->getDemands() as $demand) /** @var Demand $demand */ {
+            $this->assertStringContainsString($demand->getProduct()->getName(), $html);
+        }
+    }
+
     #[Pure] private function getUri(Product|int|null $product = null): string
     {
         if (null === $product) {
@@ -65,6 +85,20 @@ class CartControllerTest extends WebTestCase
         return sprintf(self::PUT_PRODUCT, $id);
     }
 
+    /**
+     * @param int $count
+     * @return Product[]
+     */
+    private function getRandomProducts(int $count = 1): array
+    {
+        $repository = $this->getEntityManager()->getRepository(Product::class);
+
+        $products = $repository->findAll();
+        shuffle($products);
+
+        return array_slice($products, 0, $count);
+    }
+
     private function getRandomProduct(): Product
     {
         $repository = $this->getEntityManager()->getRepository(Product::class);
@@ -72,6 +106,15 @@ class CartControllerTest extends WebTestCase
         $products = $repository->findAll();
 
         return $products[array_rand($products)];
+    }
+
+    private function getRandomUserCart(): Cart
+    {
+        $repository = $this->getEntityManager()->getRepository(Cart::class);
+
+        $carts = $repository->findAll();
+
+        return $carts[array_rand($carts)];
     }
 
     private function getEntityManager(): EntityManagerInterface

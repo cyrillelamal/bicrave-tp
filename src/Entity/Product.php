@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @OA\Schema()
  */
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[Orm\Index(columns: ['created_at'], name: 'novelties_index')]
 class Product
 {
     use ProductGetters;
@@ -45,7 +46,7 @@ class Product
     #[ORM\Column(type: 'integer')]
     private ?int $rest = 0;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(name: 'created_at', type: 'datetime')]
     private ?DateTimeInterface $createdAt;
 
     #[ORM\Column(type: 'datetime')]

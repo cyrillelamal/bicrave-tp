@@ -11,6 +11,7 @@ use JetBrains\PhpStorm\Pure;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -23,12 +24,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\Email(message: 'registration_form.email.bad_email')]
     private ?string $email = null;
 
     #[ORM\Column(type: 'json')]
     private array $roles = Role::DEFAULT_ROLES;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'registration_form.password.not_blank')]
+    #[Assert\Length(min: 6, minMessage: 'registration_form.password.min')]
     private ?string $password = null;
 
     #[ORM\OneToOne(mappedBy: 'owner', targetEntity: Cart::class, cascade: ['persist', 'remove'])]

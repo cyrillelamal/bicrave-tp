@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
@@ -121,6 +122,32 @@ class ProductRepository extends ServiceEntityRepository implements LoggerAwareIn
             ->setParameter('ids', $ids)
             ->getQuery()
             ->getResult();
+    }
+
+    public function updatePopularity(array $ids, ?DateTimeInterface $start = null, ?DateTimeInterface $end = null): void
+    {
+//        $idsParameter = str_repeat('?', count($ids) - 1);
+//        $sql = <<<SQL
+//UPDATE product
+//SET popularity = popularity + 0.2
+//WHERE id IN (:ids)
+//AND product.created_at BETWEEN :start AND :end
+//SQL;
+//
+//        $em = $this->getEntityManager();
+//        $stmt = $em->getConnection()->prepare($sql);
+//        $stmt->executeQuery([
+//            'ids' => $ids,
+//
+//        ])
+
+        $this->getEntityManager()->createQueryBuilder()
+            ->update(Product::class, 'product')
+            ->set('product.popularity', '')
+            ->where('product.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->execute();
     }
 
     protected function getQueryBuilderJoinImagesJoinCategory(): QueryBuilder

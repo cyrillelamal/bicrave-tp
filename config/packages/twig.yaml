@@ -1,5 +1,11 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        app_name: '%app.name%'
+        currency: '%app.currency%'
+        cart: '@App\Common\Cart\CartFacade'
+        stripe:
+            public: '%stripe.public%'
 
 when@test:
     twig:

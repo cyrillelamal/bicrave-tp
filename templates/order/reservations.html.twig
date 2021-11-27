@@ -1,0 +1,30 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            {{ 'reservation.name'|trans }}
+        </th>
+        <th>
+            {{ 'reservation.price'|trans }}
+        </th>
+        <th>
+            {{ 'reservation.number'|trans }}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for reservation in reservations %}
+        <tr>
+            <td>
+                <a href="{{ path('product_read', {'id': reservation.product.id}) }}">{{ reservation.product.name }}</a>
+            </td>
+            <td>
+                {{ reservation.price|format_currency(currency) }}
+            </td>
+            <td>
+                {{ reservation.number }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

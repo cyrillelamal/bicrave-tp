@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'security.register'|trans }}{% endblock %}
+
+{% block body %}
+    <main class="section">
+        <h1 class="title">
+            {{ 'security.register'|trans }}
+        </h1>
+
+        {{ include('security/registration_form.html.twig', {form: form}) }}
+
+        <div class="buttons">
+            <a href="{{ path('app_login') }}">{{ 'security.registration_form.login'|trans }}</a>
+        </div>
+
+    </main>
+{% endblock %}

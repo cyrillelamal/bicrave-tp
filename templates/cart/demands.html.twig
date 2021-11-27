@@ -1,0 +1,21 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>{{ 'cart.product.name'|trans }}</th>
+        <th>{{ 'cart.demand.number'|trans }}</th>
+        <th>{{ 'cart.product.price'|trans }}</th>
+        <th>{{ 'cart.demand.total'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for demand in demands %}
+        {% set product = demand.product %}
+        <tr class="demand" data-product-id="{{ product.id }}">
+            <td><a href="{{ path('product_read', {'id': product.id}) }}">{{ product.name }}</a></td>
+            <td>{{ demand.number|format_number }}</td>
+            <td>{{ product.price|format_currency(currency) }}</td>
+            <td class="total">{{ demand.price|format_currency(currency) }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

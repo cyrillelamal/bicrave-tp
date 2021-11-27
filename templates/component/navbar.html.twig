@@ -1,0 +1,30 @@
+<nav class="navbar" role="navigation">
+
+    <div class="navbar-brand">
+        <a href="{{ path('index') }}" class="navbar-item"><strong class="is-size-4">{{ app_name }}</strong></a>
+        <div class="navbar-item">
+            <div class="buttons">
+                {{ include('cart/preview.html.twig') }}
+            </div>
+        </div>
+        {{ include('component/burger.html.twig') }}
+    </div>
+
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <div class="navbar-item">
+                <div class="buttons">
+                    {{ include('category/links.html.twig') }}
+                </div>
+            </div>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    {{ include('security/links.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</nav>

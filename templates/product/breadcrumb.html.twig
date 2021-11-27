@@ -1,0 +1,14 @@
+{% set category = product.category %}
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li>
+            <a href="{{ path('index') }}">{{ 'home_page'|trans }}</a>
+        </li>
+        <li>
+            <a href="{{ path('category_read', {id: category.id}) }}">{{ category.name }}</a>
+        </li>
+        <li class="is-active">
+            <a href="#" aria-current="page">{{ product.name }}</a>
+        </li>
+    </ul>
+</nav>

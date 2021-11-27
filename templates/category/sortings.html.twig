@@ -1,0 +1,43 @@
+{% set direction = pagination.getDirection() %}
+<div class="dropdown is-hoverable">
+    <div class="dropdown-trigger">
+        <button class="button" aria-haspopup="true" aria-controls="dropdown-category-sort">
+            <span>{{ 'category.sort.sort_by'|trans }}</span>
+        </button>
+    </div>
+    <div class="dropdown-menu" id="dropdown-category-sort" role="menu">
+        <div class="dropdown-content">
+
+            {# product.cost ASC #}
+            <div class="dropdown-item">
+                {% set sortable = knp_pagination_sortable(pagination, 'category.sort.price.asc'|trans, 'product.cost', {}, {'direction': 'asc'}) %}
+                {% if pagination.isSorted('product.cost') and direction == 'asc' %}
+                    <b>{{ sortable|raw }}</b>
+                {% else %}
+                    {{ sortable|raw }}
+                {% endif %}
+            </div>
+
+            {# product.cost DESC #}
+            <div class="dropdown-item">
+                {% set sortable = knp_pagination_sortable(pagination, 'category.sort.price.desc'|trans, 'product.cost', {}, {'direction': 'desc'}) %}
+                {% if pagination.isSorted('product.cost') and direction == 'desc' %}
+                    <b>{{ sortable|raw }}</b>
+                {% else %}
+                    {{ sortable|raw }}
+                {% endif %}
+            </div>
+
+            {# product.createdAt DESC #}
+            <div class="dropdown-item">
+                {% set sortable = knp_pagination_sortable(pagination, 'category.sort.updated_at.desc'|trans, 'product.createdAt', {}, {'direction': 'desc'}) %}
+                {% if pagination.isSorted('product.createdAt') and direction == 'desc' %}
+                    <b>{{ sortable|raw }}</b>
+                {% else %}
+                    {{ sortable|raw }}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>

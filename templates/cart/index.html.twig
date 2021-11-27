@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'cart.nom.s'|trans }}{% endblock %}
+
+{% block body %}
+    <main class="section">
+        <h1 class="title">
+            {{ 'cart.nom.s'|trans }}
+        </h1>
+        <h2 class="subtitle cart-total">
+            {{ cart.price|format_currency(currency) }}
+        </h2>
+
+        <div class="block">
+            {{ include('cart/demands.html.twig', {demands: cart.demands}) }}
+            {{ include('cart/controls.html.twig') }}
+        </div>
+    </main>
+{% endblock %}

@@ -97,14 +97,70 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "easycorp/easyadmin-bundle": {
+        "version": "3.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "b131e6cbfe1b898a508987851963fff485986285"
+        }
+    },
     "egulias/email-validator": {
         "version": "3.1.2"
+    },
+    "fakerphp/faker": {
+        "version": "v1.16.0"
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "imagine/imagine": {
+        "version": "1.2.4"
+    },
+    "jms/metadata": {
+        "version": "2.6.1"
+    },
+    "knplabs/knp-components": {
+        "version": "v3.3.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.7.0"
+    },
     "laminas/laminas-code": {
         "version": "4.4.3"
+    },
+    "league/flysystem": {
+        "version": "2.3.1"
+    },
+    "league/flysystem-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "913dc3d7a5a1af0d2b044c5ac3a16e2f851d7380"
+        },
+        "files": [
+            "./config/packages/flysystem.yaml",
+            "./var/storage/.gitignore"
+        ]
+    },
+    "league/mime-type-detection": {
+        "version": "1.9.0"
+    },
+    "liip/imagine-bundle": {
+        "version": "2.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.8",
+            "ref": "d1227d002b70d1a1f941d91845fcd7ac7fbfc929"
+        },
+        "files": [
+            "./config/packages/liip_imagine.yaml",
+            "./config/routes/liip_imagine.yaml"
+        ]
     },
     "monolog/monolog": {
         "version": "2.3.5"
@@ -237,6 +293,12 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "stripe/stripe-php": {
+        "version": "v7.103.0"
+    },
+    "symfony/amqp-messenger": {
+        "version": "v5.3.7"
+    },
     "symfony/asset": {
         "version": "v5.3.4"
     },
@@ -287,6 +349,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v5.3.8"
+    },
+    "symfony/doctrine-messenger": {
+        "version": "v5.3.10"
     },
     "symfony/dom-crawler": {
         "version": "v5.3.7"
@@ -382,6 +447,18 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/messenger": {
+        "version": "5.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "25e3c964d3aee480b3acc3114ffb7940c89edfed"
+        },
+        "files": [
+            "./config/packages/messenger.yaml"
+        ]
+    },
     "symfony/mime": {
         "version": "v5.3.8"
     },
@@ -460,6 +537,9 @@
     "symfony/polyfill-php81": {
         "version": "v1.23.0"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.23.0"
+    },
     "symfony/process": {
         "version": "v5.3.7"
     },
@@ -471,6 +551,9 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.3.4"
+    },
+    "symfony/redis-messenger": {
+        "version": "v5.3.10"
     },
     "symfony/routing": {
         "version": "5.3",
@@ -556,6 +639,9 @@
             "./templates/base.html.twig"
         ]
     },
+    "symfony/uid": {
+        "version": "v5.3.10"
+    },
     "symfony/validator": {
         "version": "5.3",
         "recipe": {
@@ -623,10 +709,28 @@
     "twig/extra-bundle": {
         "version": "v3.3.3"
     },
+    "twig/intl-extra": {
+        "version": "v3.3.3"
+    },
     "twig/twig": {
         "version": "v3.3.3"
     },
+    "vich/uploader-bundle": {
+        "version": "1.18",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.7",
+            "ref": "c4f5755b37fb65b9c6a3cbdae91205c15a137ed4"
+        },
+        "files": [
+            "./config/packages/vich_uploader.yaml"
+        ]
+    },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "zircote/swagger-php": {
+        "version": "3.3.2"
     }
 }

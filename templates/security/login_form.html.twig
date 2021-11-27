@@ -1,0 +1,17 @@
+<form action="{{ path('app_login') }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    {% if error %}
+        {{ include('component/notification/danger.html.twig', {
+            message: error.messageKey|trans(error.messageData, 'security')
+        }) }}
+    {% endif %}
+
+    {{ include('security/field/email.html.twig', {email: email}) }}
+
+    {{ include('security/field/password.html.twig') }}
+
+    {{ include('security/field/remember_me.html.twig') }}
+
+    {{ include('security/field/submit.html.twig') }}
+</form>

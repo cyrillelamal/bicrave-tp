@@ -75,4 +75,18 @@ class DemandTest extends TestCase
 
         $this->assertTrue($useless->isUseless());
     }
+
+    /**
+     * @test
+     */
+    public function it_chooses_the_most_valuable_demand(): void
+    {
+        $product = new Product();
+        $product->setCost(1);
+        $basic = Demand::of($product, 1);
+        $valuable = Demand::of($product, 9);
+
+        $this->assertTrue($basic->isLessValuableThan($valuable));
+        $this->assertFalse($valuable->isLessValuableThan($basic));
+    }
 }

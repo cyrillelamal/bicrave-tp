@@ -48,13 +48,18 @@ trait ProductGetters
         return $this->images;
     }
 
-    public function getCategory(): ?Category
+    #[Pure] public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function getPopularity(): ?float
+    #[Pure] public function getPopularity(): ?float
     {
         return $this->popularity;
+    }
+
+    #[Pure] public function getDescription(): ?string
+    {
+        return $this->description;
     }
 }

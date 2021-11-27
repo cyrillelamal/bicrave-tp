@@ -91,9 +91,12 @@ class Cart
 
     /**
      * Check if this shopping cart contains the provided product.
+     * @param Product|Demand $demanded the demanded product or a demand referencing id.
      */
-    #[Pure] public function contains(Product $product): bool
+    #[Pure] public function contains(Product|Demand $demanded): bool
     {
+        $product = $demanded instanceof Demand ? $demanded->getProduct() : $demanded;
+
         foreach ($this->getDemands() as $demand) /** @var Demand $demand */ {
             if ($demand->representsProduct($product)) {
                 return true;
@@ -106,11 +109,13 @@ class Cart
     /**
      * Get the demand that represents the provided product.
      *
-     * @param Product $product the demanded (or not) product.
+     * @param Product|Demand $demanded the demanded product or a demand referencing it.
      * @return Demand the existing demand or a completely new one if the product has not been demanded.
      */
-    public function getDemandBy(Product $product): Demand
+    public function getDemandOf(Product|Demand $demanded): Demand
     {
+        $product = $demanded instanceof Demand ? $demanded->getProduct() : $demanded;
+
         foreach ($this->getDemands() as $demand) /** @var Demand $demand */ {
             if ($demand->representsProduct($product)) {
                 return $demand;
@@ -129,7 +134,7 @@ class Cart
      */
     public function demand(Product $product, int $number = 1): Demand
     {
-        $demand = $this->getDemandBy($product);
+        $demand = $this->getDemandOf($product);
 
         $demand->more($number);
 
@@ -145,9 +150,9 @@ class Cart
      * @param int $number the number of units of the product to pick up.
      * @return Demand the affected demand.
      */
-    public function pickUp(Product $product, int $number = 1): Demand
+    public function remove(Product $product, int $number = 1): Demand
     {
-        $demand = $this->getDemandBy($product);
+        $demand = $this->getDemandOf($product);
 
         $demand->less($number);
 
@@ -163,9 +168,7 @@ class Cart
     {
         [$useless, $allowed] = $this->getDemands()->partition(fn($_, Demand $demand) => $demand->isUseless());
 
-        foreach ($allowed as $demand) {
-            $this->addDemand($demand);
-        }
+        $this->demands = $allowed;
 
         return $useless;
     }
@@ -182,7 +185,7 @@ class Cart
 
     public function removeDemand(Demand $demand): self
     {
-        if ($this->demands->removeElement($demand)) {
+        if ($this->getDemands()->removeElement($demand)) {
             // set the owning side to null (unless already changed)
             if ($demand->getCart() === $this) {
                 $demand->setCart(null);

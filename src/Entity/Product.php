@@ -51,6 +51,9 @@ class Product
     #[ORM\Column(type: 'float')]
     private ?float $popularity = 0.0;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = '';
+
     public function __construct()
     {
         $this->createdAt = new DateTime();

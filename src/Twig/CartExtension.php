@@ -37,7 +37,7 @@ class CartExtension extends AbstractExtension
 
     protected function getDemandByProduct(Product $product): Demand
     {
-        return $this->getCart()->getDemandBy($product);
+        return $this->getCart()->getDemandOf($product);
     }
 
     private function getCart(): Cart

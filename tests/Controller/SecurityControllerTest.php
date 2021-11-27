@@ -14,7 +14,10 @@ class SecurityControllerTest extends WebTestCase
     public const LOGOUT = '/logout';
     public const REGISTER = '/register';
 
-    public function testAnonymousUsersCanLogIn(): void
+    /**
+     * @test
+     */
+    public function anonymous_user_can_log_in(): void
     {
         $client = static::createClient();
         $client->request(Request::METHOD_GET, self::LOGIN);
@@ -22,7 +25,10 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testAuthenticatedUsersCannotLogIn(): void
+    /**
+     * @test
+     */
+    public function authenticated_user_cannot_log_in(): void
     {
         $client = static::createClient();
 
@@ -31,7 +37,10 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseRedirects();
     }
 
-    public function testLogOutActionRequiresCsrfToken(): void
+    /**
+     * @test
+     */
+    public function log_out_action_requires_csrf_token(): void
     {
         $client = static::createClient();
 
@@ -40,7 +49,10 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function testUsersCanSignUp(): void
+    /**
+     * @test
+     */
+    public function users_can_sign_up(): void
     {
         $client = static::createClient();
 

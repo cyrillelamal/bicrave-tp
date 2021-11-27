@@ -15,7 +15,10 @@ class OrderControllerTest extends WebTestCase
 {
     public const READ = '/orders/%d';
 
-    public function testUsersCanSeeTheirOrders(): void
+    /**
+     * @test
+     */
+    public function users_can_see_their_orders(): void
     {
         $client = static::createClient();
 
@@ -27,7 +30,10 @@ class OrderControllerTest extends WebTestCase
         $this->assertNotEquals(Response::HTTP_NOT_FOUND, $code);
     }
 
-    public function testAnonymousUserCannotSeeAnyOrder(): void
+    /**
+     * @test
+     */
+    public function anonymous_user_cannot_see_any_order(): void
     {
         $client = static::createClient();
 
@@ -37,7 +43,10 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseRedirects();
     }
 
-    public function testCustomerCanSeeHisOrder(): void
+    /**
+     * @test
+     */
+    public function customer_can_see_his_orders(): void
     {
         $client = static::createClient();
 
@@ -47,7 +56,10 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testBobCannotSeeOrderOfMary(): void
+    /**
+     * @test
+     */
+    public function bob_cannot_see_orders_of_mary(): void
     {
         $client = static::createClient();
 

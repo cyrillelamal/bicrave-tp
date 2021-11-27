@@ -14,7 +14,10 @@ class CategoryControllerTest extends WebTestCase
     public const INDEX = '/categories';
     public const READ = '/categories/%d';
 
-    public function testUsersCanSeeTheListOfAllCategories(): void
+    /**
+     * @test
+     */
+    public function users_can_see_the_list_with_all_categories(): void
     {
         $client = static::createClient();
         $crawler = $client->request(Request::METHOD_GET, self::INDEX);
@@ -27,7 +30,10 @@ class CategoryControllerTest extends WebTestCase
         }
     }
 
-    public function testUsersCanSeeTheSpecifiedCategory(): void
+    /**
+     * @test
+     */
+    public function users_can_see_the_specified_category(): void
     {
         $client = static::createClient();
 
@@ -39,7 +45,10 @@ class CategoryControllerTest extends WebTestCase
         $this->assertPageTitleContains($category->getName());
     }
 
-    public function testUsersCannotSeeNotExistingCategories(): void
+    /**
+     * @test
+     */
+    public function users_cannot_see_not_existing_categories(): void
     {
         $client = static::createClient();
 

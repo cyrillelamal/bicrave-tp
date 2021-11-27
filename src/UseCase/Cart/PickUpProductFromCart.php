@@ -35,7 +35,7 @@ final class PickUpProductFromCart
     {
         $cart = $this->provider->getCart();
 
-        $cart->pickUp($product);
+        $cart->remove($product);
 
         $this->logger->debug('Saving cart', ['manager' => $this->manager, 'cart' => $cart]);
         $this->manager->save($cart);

@@ -17,7 +17,7 @@ class CartTest extends TestCase
         $cart = new Cart();
         $product = new Product();
 
-        $demand = $cart->getDemandBy($product);
+        $demand = $cart->getDemandOf($product);
 
         $this->assertNull($demand->getId());
         $this->assertSame($product, $demand->getProduct());
@@ -35,13 +35,13 @@ class CartTest extends TestCase
         $demand->setProduct($product);
         $cart->getDemands()->add($demand);
 
-        $this->assertSame($demand, $cart->getDemandBy($product));
+        $this->assertSame($demand, $cart->getDemandOf($product));
     }
 
     /**
      * @test
      */
-    public function it_check_if_the_product_has_been_demanded(): void
+    public function it_checks_if_the_product_has_been_demanded(): void
     {
         $cart = new Cart();
         $product = new Product();
@@ -76,7 +76,7 @@ class CartTest extends TestCase
     /**
      * @test
      */
-    public function it_removes_the_demands(): void
+    public function it_removes_demands(): void
     {
         $cart = new Cart();
         $product = new Product();

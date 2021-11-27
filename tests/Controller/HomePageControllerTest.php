@@ -9,7 +9,10 @@ class HomePageControllerTest extends WebTestCase
 {
     const URI = '/';
 
-    public function testEverybodyCanAccessTheHomePage(): void
+    /**
+     * @test
+     */
+    public function everybody_can_access_the_home_page(): void
     {
         $client = static::createClient();
         $client->request(Request::METHOD_GET, self::URI);

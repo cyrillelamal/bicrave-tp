@@ -14,7 +14,10 @@ class CartControllerTest extends WebTestCase
     public const INDEX = '/carts';
     public const PUT_PRODUCT = '/carts/%d'; // same as pick up product
 
-    public function testAnonymousUsersCanSeeTheirCart(): void
+    /**
+     * @test
+     */
+    public function anonymous_user_can_see_his_cart(): void
     {
         $client = static::createClient();
 
@@ -23,7 +26,10 @@ class CartControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testUsersCanPutProductsInCart(): void
+    /**
+     * @test
+     */
+    public function user_can_put_products_in_the_cart(): void
     {
         $client = static::createClient();
 
@@ -34,7 +40,10 @@ class CartControllerTest extends WebTestCase
         $this->assertNotEquals(Response::HTTP_NOT_FOUND, $code);
     }
 
-    public function testUsersCanPickUpProductsFromCart(): void
+    /**
+     * @test
+     */
+    public function user_can_pick_up_products_from_the_cart(): void
     {
         $client = static::createClient();
 

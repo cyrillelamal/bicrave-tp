@@ -48,13 +48,15 @@ class ChainCartProvider implements CartProviderInterface
     }
 
     /**
+     * Order is important!
+     *
      * @return CartProviderInterface[]
      */
     #[Pure] protected function getProviders(): array
     {
         return [
-            $this->sessionCartProvider,
             $this->userCartProvider,
+            $this->sessionCartProvider,
         ];
     }
 }

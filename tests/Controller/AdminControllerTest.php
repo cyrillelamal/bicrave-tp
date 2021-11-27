@@ -13,7 +13,10 @@ class AdminControllerTest extends WebTestCase
 {
     public const URI = '/admin';
 
-    public function testCustomersHaveNoAccessToAdminDashboard(): void
+    /**
+     * @test
+     */
+    public function customers_have_no_access_to_the_admin_dashboard(): void
     {
         $client = static::createClient();
 
@@ -25,7 +28,10 @@ class AdminControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function testContentManagersHaveAccessToAdminDashboard(): void
+    /**
+     * @test
+     */
+    public function content_managers_have_access_to_the_admin_dashboard(): void
     {
         $client = static::createClient();
 

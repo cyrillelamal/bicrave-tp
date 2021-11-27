@@ -13,7 +13,10 @@ class ProfileControllerTest extends WebTestCase
 {
     public const INDEX = '/profiles';
 
-    public function testUsersCanAccessTheirProfile(): void
+    /**
+     * @test
+     */
+    public function users_can_access_their_profile(): void
     {
         $client = static::createClient();
         $client->request(Request::METHOD_GET, self::INDEX);
@@ -22,7 +25,10 @@ class ProfileControllerTest extends WebTestCase
         $this->assertNotEquals(Response::HTTP_NOT_FOUND, $code);
     }
 
-    public function testAnonymousUseHasNoProfile(): void
+    /**
+     * @test
+     */
+    public function anonymous_user_has_no_profile(): void
     {
         $client = static::createClient();
         $client->request(Request::METHOD_GET, self::INDEX);
@@ -30,7 +36,10 @@ class ProfileControllerTest extends WebTestCase
         $this->assertResponseRedirects();
     }
 
-    public function testCustomerCanAccessHisProfile(): void
+    /**
+     * @test
+     */
+    public function customer_can_access_his_profile(): void
     {
         $client = static::createClient();
 
@@ -41,7 +50,10 @@ class ProfileControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testEmployeesHasNoProfile(): void
+    /**
+     * @test
+     */
+    public function employees_have_no_profile(): void
     {
         $client = static::createClient();
 

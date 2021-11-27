@@ -13,7 +13,10 @@ class ProductControllerTest extends WebTestCase
 {
     public const READ = '/products/%d';
 
-    public function testUsersCanSeeProductInformation(): void
+    /**
+     * @test
+     */
+    public function users_can_see_product_information(): void
     {
         $client = static::createClient();
 
@@ -26,7 +29,10 @@ class ProductControllerTest extends WebTestCase
         $this->assertPageTitleContains($product->getName());
     }
 
-    public function testUsersCannotSeeNotExistingProducts(): void
+    /**
+     * @test
+     */
+    public function users_cannot_see_not_existing_products(): void
     {
         $client = static::createClient();
 

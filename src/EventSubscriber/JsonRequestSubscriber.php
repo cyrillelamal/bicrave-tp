@@ -17,6 +17,16 @@ class JsonRequestSubscriber implements EventSubscriberInterface
     public const HEADER = 'Content-Type';
     public const CONTENT_TYPE = 'application/json';
 
+    /**
+     * {@inheritDoc}
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::REQUEST => 'replaceRequestParameters',
+        ];
+    }
+
     public function replaceRequestParameters(RequestEvent $event)
     {
         $request = $event->getRequest();
@@ -34,12 +44,5 @@ class JsonRequestSubscriber implements EventSubscriberInterface
                 throw new BadRequestHttpException();
             }
         }
-    }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::REQUEST => 'replaceRequestParameters',
-        ];
     }
 }

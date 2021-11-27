@@ -69,16 +69,16 @@ class Demand
      */
     #[Pure] public function getTotal(): int
     {
-        return $this->getNumber() * $this->getProduct()->getCost();
+        return $this->getNumber() * $this->getProduct()?->getCost() ?? 0;
     }
 
     /**
      * Check if this demand represents the provided product.
      */
-    #[Pure] public function representsProduct(Product $product): bool
+    #[Pure] public function representsProduct(?Product $product): bool
     {
         return $this->getProduct() === $product
-            || $this->getProduct()->getId() === $product->getId();
+            || $this->getProduct()?->getId() === $product?->getId();
     }
 
     /**
@@ -110,5 +110,13 @@ class Demand
     public function less(int $number): int
     {
         return $this->number -= abs($number);
+    }
+
+    /**
+     * Check if this demand is less valuable than the other.
+     */
+    #[Pure] public function isLessValuableThan(Demand $other): bool
+    {
+        return $this->getTotal() < $other->getTotal();
     }
 }

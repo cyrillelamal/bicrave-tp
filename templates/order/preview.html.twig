@@ -1,0 +1,17 @@
+<div class="card order-preview" data-id="{{ order.id }}">
+    <header class="card-header">
+        <p class="card-header-title" data-status="{{ order.status }}">
+            {{ include('order/status.html.twig', {'order': order}) }}
+        </p>
+    </header>
+    <div class="card">
+        <div class="card-content">
+            <div class="content">
+                <p>{{ include('order/number.html.twig', {'order': order}) }}</p>
+                <p>{{ include('order/created_at.html.twig', {'order': order}) }}</p>
+                <p>{{ include('order/total.html.twig', {'order': order}) }}</p>
+                <p>{{ include('order/details_link.html.twig', {'order': order}) }}</p>
+            </div>
+        </div>
+    </div>
+</div>

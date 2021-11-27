@@ -3,13 +3,19 @@
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomePageControllerTest extends WebTestCase
 {
-    public function testSomething(): void
+    const URI = '/';
+
+    /**
+     * @test
+     */
+    public function everybody_can_access_the_home_page(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/');
+        $client->request(Request::METHOD_GET, self::URI);
 
         $this->assertResponseIsSuccessful();
     }

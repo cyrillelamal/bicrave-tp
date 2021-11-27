@@ -1,0 +1,12 @@
+<ul class="menu-list">
+    {% for category in categories %}
+        <li>
+            <a href="{{ path('category_read', {'id': category.id}) }}">{{ category.name }}</a>
+        </li>
+        {% if category.children %}
+            <li>
+                {{ include('category/level.html.twig', {categories: category.children}) }}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

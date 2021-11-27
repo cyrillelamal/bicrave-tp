@@ -4,12 +4,21 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.name: 'bicrave-tp'
+    app.locale: 'ru'
+    app.currency: 'EUR'  # ISO 4217
+    secure_channel: 'http'
+    app.path.product_images: '/uploads/images/products'
+    stripe.public: '%env(STRIPE_PUBLIC_KEY)%'
+    stripe.secret: '%env(STRIPE_SECRET_KEY)%'
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $locale: '%app.locale%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -23,3 +32,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Common\Currency\ApplicationCurrencyProvider:
+        arguments:
+            $code: '%app.currency%'
+
+    App\Common\Cart\CartProviderInterface: '@App\Common\Cart\ChainCartProvider'
+
+    App\Service\Payment\StripePaymentProcessor:
+        arguments:
+            $stripeSecret: '%stripe.secret%'

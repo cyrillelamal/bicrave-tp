@@ -1,0 +1,83 @@
+home_page: 'Домашняя страница'
+
+security:
+    register: 'Зарегистрироваться'
+    login: 'Войти'
+    logout: 'Выйти'
+    profile: 'Личный кабинет'
+    greetings: 'Добро пожаловать, %name%'
+    registration_form:
+        email: 'Электронная почта'
+        password: 'Пароль'
+        agree_terms: 'Я принимаю условия пользования'
+        submit: 'Зарегистрироваться'
+        login: 'Уже есть аккаунт?'
+    login_form:
+        email: 'Электронная почта'
+        password: 'Пароль'
+        remember_me: 'Запомнить меня'
+        submit: 'Войти'
+
+category:
+    nom:
+        s: 'Категория'
+        pl: 'Категории'
+    sort:
+        sort_by: 'Сортировка'
+        price:
+            asc: 'Цена по возрастанию'
+            desc: 'Цена по убыванию'
+        updated_at:
+            desc: 'Новинки'
+
+product:
+    new_products: 'Новые товары'
+    popular_products: 'Популярные товары'
+    add: 'Купить'
+    pick_up: '-'
+    details: 'Подробнее'
+
+order:
+    nom:
+        s: 'Заказ'
+        pl: 'Заказы'
+    status:
+        created: 'Создан'
+        accepted: 'Принят в обработку'
+    number: 'Заказ № %number%'
+    from: 'От'
+    details: 'Подробнее'
+
+reservation:
+    name: 'Наименование'
+    price: 'Цена'
+    number: 'Количество'
+
+cart:
+    nom:
+        s: 'Корзина'
+        pl: 'Корзины'
+    empty: 'В вашей корзине нет товаров'
+    not_authenticated: 'Войдите или зарегистрируйтесь, чтобы оформить заказ'
+    pay: 'Оформить заказ'
+    product:
+        name: 'Наименование товара'
+        price: 'Стоимость'
+    demand:
+        number: 'Количество'
+        total: 'Стоимость позиции'
+
+payment:
+    order:
+        accepted: 'Заказ № %number% принят в обработку'
+
+command:
+    create_content_manager:
+        password: 'Введите пароль'
+        password_repeat: 'Повторите пароль'
+        not_match: 'Введенные пароли различаются, попробуйте снова'
+        success: 'Пользователь успешно создан: %email%'
+
+carousel:
+    previous: '←'
+    next: '→'

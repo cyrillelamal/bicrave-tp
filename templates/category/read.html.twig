@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block body %}
+    <main class="section">
+
+        <h1 class="title">
+            {{ category.name }}
+        </h1>
+
+        <div class="block">
+            {# TODO: add filters #}
+            {{ include('category/sortings.html.twig', {pagination: products}) }}
+        </div>
+
+        <div class="block">
+            {{ include('category/products.html.twig', {products: products}) }}
+        </div>
+
+        <div class="block">
+            {{ knp_pagination_render(products) }}
+        </div>
+
+    </main>
+{% endblock %}

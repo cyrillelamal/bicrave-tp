@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'category.nom.pl'|trans }}{% endblock %}
+
+{% block body %}
+    <main class="section">
+        <h1 class="title">{{ 'category.nom.pl'|trans }}</h1>
+        {{ include('category/menu.html.twig', {'categories': categories}) }}
+    </main>
+{% endblock %}

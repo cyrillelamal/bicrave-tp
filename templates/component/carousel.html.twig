@@ -1,0 +1,24 @@
+<div class="image-carousel">
+
+    {% for image in images %}
+        <figure class="image {% if not loop.first %}is-hidden{% endif %}">
+            {% if image.external %}
+                <img src="{{ image.name }}" alt="{{ image.alt }}">
+            {% else %}
+                <img src="{{ vich_uploader_asset(image)|imagine_filter('miniature') }}" alt="{{ image.alt }}">
+            {% endif %}
+        </figure>
+    {% endfor %}
+
+    {% if not images is empty %}
+        <div class="is-relative columns is-gapless">
+            <div class="column">
+                <button class="button is-fullwidth previous">{{ 'carousel.previous'|trans }}</button>
+            </div>
+            <div class="column">
+                <button class="button is-fullwidth next">{{ 'carousel.next'|trans }}</button>
+            </div>
+        </div>
+    {% endif %}
+
+</div>

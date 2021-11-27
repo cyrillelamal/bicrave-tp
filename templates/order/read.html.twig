@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ order|order_number }}{% endblock %}
+
+{% block body %}
+    <main class="section">
+        {{ include('order/breadcrumb.html.twig', {'order': order}) }}
+
+        <h1 class="title">
+            {{ order|order_number }}
+        </h1>
+
+        <h2 class="subtitle">
+            {{ include('order/created_at.html.twig', {'order': order}) }}
+        </h2>
+        <h2 class="subtitle">
+            {{ include('order/total.html.twig', {'order': order}) }}
+        </h2>
+
+        <div class="block">
+            {{ include('order/status.html.twig', {'order': order}) }}
+        </div>
+
+        <div class="block">
+            {{ include('order/reservations.html.twig', {reservations: order.reservations}) }}
+        </div>
+
+    </main>
+{% endblock %}

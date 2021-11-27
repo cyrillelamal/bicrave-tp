@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'security.login'|trans }}{% endblock %}
+
+{% block body %}
+    <main class="section">
+        <h1 class="title">
+            {{ 'security.login'|trans }}
+        </h1>
+        {{ include('security/login_form.html.twig', {
+            email: last_username,
+            error: error
+        }) }}
+    </main>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block main %}
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">
+            {{ 'dashboard'|trans({}, 'admin') }}
+        </h1>
+        <p class="col-md-8 fs-4">
+            {{ 'greetings'|trans({'%name%': app.user.email}, 'admin') }}
+        </p>
+        <a href="{{ path('index') }}" class="btn btn-primary btn-lg">{{ 'home_page'|trans({}, 'admin') }}</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% if order.status == 'created' %}
+    <span class="is-info">{{ 'order.status.created'|trans }}</span>
+{% elseif order.status == 'accepted' %}
+    <span class="is-primary">{{ 'order.status.accepted'|trans }}</span>
+{% endif %}

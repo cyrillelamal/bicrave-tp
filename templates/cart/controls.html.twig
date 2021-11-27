@@ -1,0 +1,17 @@
+{% if cart.empty %}
+    <p>{{ 'cart.empty'|trans }}</p>
+{% else %}
+    {% if app.user %}
+        {{ include('component/stripe.html.twig') }}
+    {% else %}
+        <div class="block">
+            {{ 'cart.not_authenticated'|trans }}
+        </div>
+        <div class="block">
+            <div class="buttons">
+                <a href="{{ path('app_register') }}" class="button is-link">{{ 'security.register'|trans }}</a>
+                <a href="{{ path('app_login') }}" class="button is-primary">{{ 'security.login'|trans }}</a>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

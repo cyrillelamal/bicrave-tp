@@ -9,25 +9,38 @@ use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+/**
+ * @OA\Schema()
+ */
 #[ORM\Entity(repositoryClass: DemandRepository::class)]
 class Demand
 {
     use DemandGetters;
     use DemandSetters;
 
+    /**
+     * @OA\Property(property="id", @OA\Schema(type="integer"))
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups([Cart::READ])]
     private ?int $id = null;
 
+    /**
+     * @OA\Property(property="product", @OA\Schema(type="object"))
+     */
     #[ORM\ManyToOne(targetEntity: Product::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([Cart::READ])]
     private ?Product $product = null;
 
+    /**
+     * @OA\Property(property="number", @OA\Schema(type="integer"))
+     */
     #[ORM\Column(type: 'integer')]
     #[Groups([Cart::READ])]
     private ?int $number = 0;

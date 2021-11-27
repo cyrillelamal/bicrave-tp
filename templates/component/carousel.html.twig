@@ -5,7 +5,7 @@
             {% if image.external %}
                 <img src="{{ image.name }}" alt="{{ image.alt }}">
             {% else %}
-                <img src="{{ vich_uploader_asset(image) }}" alt="{{ image.alt }}">
+                <img src="{{ vich_uploader_asset(image)|imagine_filter('miniature') }}" alt="{{ image.alt }}">
             {% endif %}
         </figure>
     {% endfor %}

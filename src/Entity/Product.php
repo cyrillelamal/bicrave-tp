@@ -11,20 +11,30 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+/**
+ * @OA\Schema()
+ */
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
     use ProductGetters;
     use ProductSetters;
 
+    /**
+     * @OA\Property(property="id", @OA\Schema(type="integer"))
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups([Cart::READ])]
     private ?int $id = null;
 
+    /**
+     * @OA\Property(property="name", @OA\Schema(type="string"))
+     */
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups([Cart::READ])]
     private ?string $name = null;

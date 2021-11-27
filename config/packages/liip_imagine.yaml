@@ -2,3 +2,13 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
+    twig:
+        mode: lazy
+    filter_sets:
+        cache: ~
+        miniature:
+            quality: 75
+            filters:
+                thumbnail:
+                    size: [ 640, 480 ]
+                    mode: outbound

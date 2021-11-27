@@ -20,7 +20,10 @@
             {{ product.price|format_currency(currency) }}
         </h3>
 
-        {{ include('product/controls.html.twig', {product: product}) }}
+        {% if is_granted('ROLE_CUSTOMER') %}
+            {{ include('product/controls.html.twig', {product: product}) }}
+        {% endif %}
+
     </div>
 
 </div>

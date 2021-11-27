@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ProductCrudController extends AbstractCrudController
@@ -52,6 +53,7 @@ class ProductCrudController extends AbstractCrudController
         yield DateTimeField::new('createdAt', 'product.fields.created_at')
             ->hideOnForm();
         yield AssociationField::new('category', 'product.fields.category');
+        yield TextareaField::new('description', 'product.fields.description');
     }
 
     protected function getApplicationCurrency(): Currency

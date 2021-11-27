@@ -15,11 +15,15 @@
         </h2>
 
         <div class="block">
-            {{ include('product/controls.html.twig', {'product': product}) }}
+            {% if is_granted('ROLE_CUSTOMER') %}
+                {{ include('product/controls.html.twig', {product: product}) }}
+            {% endif %}
         </div>
 
         <div class="block">
-            {# {{ include('component/carousel.html.twig', {'images': product.images}) }} #}
+            <div class="container">
+                {{ include('component/carousel.html.twig', {images: product.images}) }}
+            </div>
         </div>
 
     </main>

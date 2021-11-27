@@ -9,9 +9,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+/**
+ * @OA\Schema()
+ */
 #[ORM\Entity(repositoryClass: CartRepository::class)]
 class Cart
 {
@@ -20,11 +24,17 @@ class Cart
     use CartGetters;
     use CartSetters;
 
+    /**
+     * @OA\Property(property="id", @OA\Schema(type="integer"))
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    /**
+     * @OA\Property(property="demands", type="array", @OA\Items(type="object", ref="#/components/schemas/Demand"))
+     */
     #[ORM\OneToMany(mappedBy: 'cart', targetEntity: Demand::class, orphanRemoval: true)]
     #[Groups([self::READ])]
     private Collection $demands;

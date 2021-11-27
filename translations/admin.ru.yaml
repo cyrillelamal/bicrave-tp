@@ -1,4 +1,6 @@
 dashboard: 'Панель управления'
+greetings: 'Добро пожаловать, %name%'
+home_page: 'Перейти в магазин'
 
 category:
     nom:

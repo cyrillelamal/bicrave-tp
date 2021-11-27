@@ -30,4 +30,21 @@ class CategoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Find children by the parent.
+     *
+     * @param Category|int $parent the parent category or its id.
+     * @return Category[]
+     */
+    public function findChildren(Category|int $parent): array
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.parent', 'parent')
+            ->addSelect('parent')
+            ->where('c.parent = :parent')
+            ->setParameter('parent', $parent)
+            ->getQuery()
+            ->getResult();
+    }
 }

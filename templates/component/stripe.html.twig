@@ -1,0 +1,13 @@
+<form action="{{ path('order_create') }}" method="post">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            {% if app.user is not null %}
+                data-email="{{ app.user.email }}"
+            {% endif %}
+            data-key="{{ stripe.public }}"
+            data-amount="{{ cart.total }}"
+            data-locale="auto"
+            data-label="{{ 'cart.pay'|trans }}"
+            data-currency="{{ currency }}"
+    >
+    </script>
+</form>

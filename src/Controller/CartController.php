@@ -35,16 +35,14 @@ class CartController extends AbstractController
     #[Route(name: 'index', methods: [Request::METHOD_GET])]
     public function index(): Response
     {
-        return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController',
-        ]);
+        return $this->render('cart/index.html.twig');
     }
 
     /**
      * @throws ExceptionInterface
      */
     #[Route(path: '/{id<\d+>}', name: 'put_product', methods: [Request::METHOD_PATCH, Request::METHOD_PUT])]
-    public function put(Product $product, Request $request): Response
+    public function demand(Product $product, Request $request): Response
     {
         if (!$this->isCsrfTokenValid('global', $request->headers->get('X-CSRF-TOKEN'))) {
             throw new AccessDeniedHttpException();
@@ -61,7 +59,7 @@ class CartController extends AbstractController
      * @throws ExceptionInterface
      */
     #[Route(path: '/{id<\d+>}', name: 'pick_up_product', methods: [Request::METHOD_DELETE])]
-    public function delete(Product $product, Request $request): Response
+    public function remove(Product $product, Request $request): Response
     {
         if (!$this->isCsrfTokenValid('global', $request->headers->get('X-CSRF-TOKEN'))) {
             throw new AccessDeniedHttpException();

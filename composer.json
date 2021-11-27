@@ -15,8 +15,10 @@
         "easycorp/easyadmin-bundle": "^3.5",
         "knplabs/knp-paginator-bundle": "^5.7",
         "league/flysystem-bundle": "^2.0",
+        "liip/imagine-bundle": "^2.7",
         "phpdocumentor/reflection-docblock": "^5.3",
         "sensio/framework-extra-bundle": "^6.1",
+        "stripe/stripe-php": "^7.103",
         "symfony/asset": "5.3.*",
         "symfony/console": "5.3.*",
         "symfony/dotenv": "5.3.*",
@@ -60,7 +62,8 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^5.3",
         "symfony/stopwatch": "5.3.*",
-        "symfony/web-profiler-bundle": "5.3.*"
+        "symfony/web-profiler-bundle": "5.3.*",
+        "zircote/swagger-php": "^3.3"
     },
     "config": {
         "optimize-autoloader": true,

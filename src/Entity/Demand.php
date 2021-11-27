@@ -73,6 +73,16 @@ class Demand
     }
 
     /**
+     * Get the final demand price.
+     *
+     * @return float not formatted application currency value.
+     */
+    #[Pure] public function getPrice(): float
+    {
+        return $this->getTotal() / 100;
+    }
+
+    /**
      * Check if this demand represents the provided product.
      */
     #[Pure] public function representsProduct(?Product $product): bool
@@ -88,6 +98,14 @@ class Demand
     #[Pure] public function isUseless(): bool
     {
         return $this->number < 1 || null === $this?->getProduct()?->getId();
+    }
+
+    /**
+     * Check if this demand cannot be realized because the demanded product is out of stock.
+     */
+    #[Pure] public function isOutOfStock(): bool
+    {
+        return $this->getProduct()->isOutOfStock();
     }
 
     /**

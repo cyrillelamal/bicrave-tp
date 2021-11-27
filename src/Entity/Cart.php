@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
@@ -171,6 +172,18 @@ class Cart
         $this->demands = $allowed;
 
         return $useless;
+    }
+
+    /**
+     * Check if this shopping cart is owned by the provided user.
+     *
+     * @param UserInterface|string $user the user or his/her email.
+     */
+    #[Pure] public function belongsTo(UserInterface|string $user): bool
+    {
+        $email = $user instanceof UserInterface ? $user->getUserIdentifier() : $user;
+
+        return $this->getOwner()?->getUserIdentifier() === $email;
     }
 
     public function addDemand(Demand $demand): self

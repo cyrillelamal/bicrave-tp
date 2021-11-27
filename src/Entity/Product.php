@@ -71,6 +71,14 @@ class Product
         return $this->getCost() / 100;
     }
 
+    /**
+     * Check if this product is not available in stock.
+     */
+    #[Pure] public function isOutOfStock(): bool
+    {
+        return $this->getRest() < 1;
+    }
+
     public function addImage(Image $image): self
     {
         if (!$this->getImages()->contains($image)) {
@@ -117,5 +125,16 @@ class Product
 
             $this->$property = $value;
         }
+    }
+
+    /**
+     * Reserve the product in the stock.
+     *
+     * @param int $number how many units of the product to reserve.
+     * @return int the new number of units of the product in the stock.
+     */
+    public function reserve(int $number): int
+    {
+        return $this->rest -= abs($number);
     }
 }

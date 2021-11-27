@@ -8,6 +8,8 @@ parameters:
     app.locale: 'ru'
     app.currency: 'EUR'  # ISO 4217
     app.path.product_images: '/uploads/images/products'
+    stripe.public: '%env(STRIPE_PUBLIC_KEY)%'
+    stripe.secret: '%env(STRIPE_SECRET_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -34,3 +36,7 @@ services:
             $code: '%app.currency%'
 
     App\Common\Cart\CartProviderInterface: '@App\Common\Cart\ChainCartProvider'
+
+    App\Service\Payment\StripePaymentProcessor:
+        arguments:
+            $stripeSecret: '%stripe.secret%'

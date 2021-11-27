@@ -53,6 +53,24 @@ reservation:
     price: 'Цена'
     number: 'Количество'
 
+cart:
+    nom:
+        s: 'Корзина'
+        pl: 'Корзины'
+    empty: 'В вашей корзине нет товаров'
+    not_authenticated: 'Войдите или зарегистрируйтесь, чтобы оформить заказ'
+    pay: 'Оформить заказ'
+    product:
+        name: 'Наименование товара'
+        price: 'Стоимость'
+    demand:
+        number: 'Количество'
+        total: 'Стоимость позиции'
+
+payment:
+    order:
+        accepted: 'Заказ № %number% принят в обработку'
+
 carousel:
     previous: '←'
     next: '→'

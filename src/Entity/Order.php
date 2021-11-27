@@ -93,6 +93,18 @@ class Order
             && $user->getUserIdentifier() === $this->getCustomer()->getUserIdentifier();
     }
 
+    /**
+     * Get description for payment processors.
+     */
+    public function getDescription(): string
+    {
+        return sprintf(
+            'Order from %s created by %s.',
+            $this->getCreatedAt()->format(DateTimeInterface::ATOM),
+            $this->getCustomer()->getUserIdentifier(),
+        );
+    }
+
     public function addReservation(Reservation $reservation): self
     {
         if (!$this->getReservations()->contains($reservation)) {

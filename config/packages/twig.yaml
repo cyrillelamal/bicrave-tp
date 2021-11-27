@@ -4,6 +4,8 @@ twig:
         app_name: '%app.name%'
         currency: '%app.currency%'
         cart: '@App\Common\Cart\CartFacade'
+        stripe:
+            public: '%stripe.public%'
 
 when@test:
     twig:

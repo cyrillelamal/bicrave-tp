@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM php:8.0-fpm
 
 COPY wait-for-it.sh /usr/local/bin/wait-for-it.sh
 RUN chmod +x /usr/local/bin/wait-for-it.sh \

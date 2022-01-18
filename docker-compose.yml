@@ -45,7 +45,7 @@ services:
         ports:
             - '6379'
     composer:
-        image: composer:latest
+        image: composer:2.1.6  # PHP ~8.0.0
         working_dir: /bicrave-tp
         environment:
             STRIPE_PUBLIC_KEY: ${STRIPE_PUBLIC_KEY}

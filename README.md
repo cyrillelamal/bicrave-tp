@@ -41,16 +41,33 @@ Users can pay for an order using Stripe.
 
 ## How to install
 
-1. Copy the `.env` to `.env.local` or `.env.prod` and configure the environment variables. Notice that without valid
-   variables `STRIPE_PUBLIC` and `STRIPE_PRIVATE` you will not be able to play around with Stripe.
-2. Use Docker Compose to up containers: `docker-compose up -d`.
-3. Run database migrations: `docker-compose run php-fpm sh -c "php bin/console doctrine:migrations:migrate"`
-4. The application is hosted at `bicrave-tp.com`. To access it you have to update your `hosts` or deploy it somewhere
-   else.
-5. Profit!
+Use `make`.
 
-Optionally, load fixtures: `docker-compose run php-fpm sh -c "php bin/console doctrine:fixtures:load --no-interaction`
-or play around with the admin dashboard.
+* Run `dev` target to start a local version of the application.
+
+```shell
+make dev
+```
+
+By default, the application is available at [http://bicrave-tp.com](http://bicrave-tp.com), so refine yours hosts
+settings or configure your `bicrave-tp.conf` nginx configuration (placed
+in [docker/nginx/bicrave-tp.conf](docker/nginx/bicrave-tp.conf)) before running the command.
+
+Optionally, load fixtures using the following command or play around with the admin dashboard.
+
+```shell
+# Load fixtures
+docker-compose run php-fpm sh -c "php bin/console doctrine:fixtures:load --no-interaction"
+
+# Or create an admin user
+docker-compose run php-fpm sh -c "php bin/console app:create-content-manager example@your.mail"
+```
+
+* You also can run `test` target to run tests and then tear down the application.
+
+```shell
+make test
+```
 
 ### Add a content manager
 
@@ -58,5 +75,8 @@ Run the Symfony command `app:create-content-manager` and follow the instructions
 
 ### Test
 
-Tests are run on CircleCI. To run them locally, repeat `build-dev` workflow on your machine (see `.circleci/config.yml`)
-.
+Tests are run on CircleCI. To run them locally, run the `test` target:
+
+```shell
+make test
+```
